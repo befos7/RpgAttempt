@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Vector3 targetPos;
-
+    private bool positionSet;
    
     private Vector2 direction;
     private float moveSpeed = 0.1f;
@@ -14,25 +15,41 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        targetPos = transform.position;
+        positionSet = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    //targetPos = -Vector3.one;
-        //    //targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, 10f));// 
-        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //    RaycastHit2D hit;
-        //    if (Physics2D.Raycast(Camera.main, Camera.main.ScreenPointToRay(Input.mousePosition));
-        //    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            //targetPos = -Vector3.one;
+            targetPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));// 
+            
+            Debug.Log(targetPos);
+            positionSet = true;
+            
+        }
+        if (Vector3.Distance(this.transform.position, targetPos) > 0.1f  && positionSet == true)
+        {
+            transform.Translate((targetPos - transform.position).normalized * (moveSpeed));
 
-        //    }
+        }
+        else if(Vector3.Distance(this.transform.position, targetPos) < 0.1f)
+        {
+            positionSet = false;
 
-        //    this.transform.position = targetPos;
-        //}
+
+        }
+
+        //
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Debug.Log(Vector3.Distance(this.transform.position, targetPos));
+        }
+        //
+
         if (Input.GetKey(KeyCode.UpArrow))
         {
             direction = Vector2.up;
