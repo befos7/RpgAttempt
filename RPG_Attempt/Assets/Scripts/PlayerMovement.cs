@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool menuOpen;
 
+
     // Start is called before the first frame update
     void Start()
     {
