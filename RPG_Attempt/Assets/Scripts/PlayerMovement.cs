@@ -28,6 +28,18 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MouseMovement();
+
+        if (!menuOpen)
+        {
+            ArrowMovement();
+
+        }
+
+    }
+
+    private void MouseMovement()
+    {
         if (Input.GetMouseButtonDown(0) && !IsMouseOverUI())
         {
             //targetPos = -Vector3.one;
@@ -48,19 +60,6 @@ public class PlayerMovement : MonoBehaviour
 
 
         }
-
-        //
-        if (Input.GetKey(KeyCode.Space))
-        {
-            Debug.Log(Vector3.Distance(this.transform.position, targetPos));
-        }
-        //
-        if (!menuOpen)
-        {
-        ArrowMovement();
-
-        }
-
     }
 
     private void ArrowMovement()

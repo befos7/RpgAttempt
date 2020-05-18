@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class MenuController : MonoBehaviour
 {
     [SerializeField]
     GameObject menuPanel;
+    //Text menuPanelText;
     [SerializeField]
     private GameObject talentTreePanel;
     [SerializeField]
@@ -15,7 +17,9 @@ public class MenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //menuPanelText = menuPanel.GetComponentInChildren<Text>();
+
+
     }
 
     // Update is called once per frame
@@ -26,13 +30,28 @@ public class MenuController : MonoBehaviour
 
     public void ToggleMenu()
     {
+        
         menuPanel.SetActive(!menuPanel.activeSelf);
+        //if (menuPanel.activeSelf)
+        //{
+        //    menuPanelText.text = "Close";
+        //}
+        //else
+        //{
+        //    menuPanelText.text = "Menu";
+
+        //}
     }
 
     public void GoBackFromTalentMenu()
     {
         CloseTalentPanels();
         talentTreePanel.SetActive(false);
+    }
+    public void GoToTalentMenuScreen()
+    {
+        talentTreePanel.SetActive(true);
+
     }
     public void OpenTalentPanel(int value)
     {
