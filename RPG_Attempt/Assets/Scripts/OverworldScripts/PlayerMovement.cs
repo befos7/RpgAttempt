@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
         positionSet = false;
         menuOpen = false;
         playerIsMoving = false;
+
+        PersistantData.specialEncounter = false;
     }
 
     // Update is called once per frame
