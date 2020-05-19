@@ -18,11 +18,7 @@ public class RandomEncounter : MonoBehaviour
         EncounterDecriment = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
     private void FixedUpdate()
     {
         if (player.GetComponent<PlayerMovement>().playerIsMoving)
@@ -41,6 +37,12 @@ public class RandomEncounter : MonoBehaviour
                 }
             }
         }
-        Debug.Log(encounterChance + " " + EncounterDecriment);
+        //Debug.Log(encounterChance + " " + EncounterDecriment);
+    }
+
+    public void StartRandomBattle()
+    {
+        SceneManager.LoadScene(2);
+
     }
 }

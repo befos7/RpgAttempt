@@ -16,10 +16,10 @@ public class PlayerMovement : MonoBehaviour
 
     private bool menuOpen;
 
-    //this is public for the random enounter system
+    
     public bool playerIsMoving;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         targetPos = transform.position;
@@ -27,10 +27,11 @@ public class PlayerMovement : MonoBehaviour
         menuOpen = false;
         playerIsMoving = false;
 
-        PersistantData.specialEncounter = false;
+        
+        
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
 
@@ -53,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !IsMouseOverUI())
         {
-            //targetPos = -Vector3.one;
+            
             targetPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));// 
 
             positionSet = true;
@@ -82,21 +83,21 @@ public class PlayerMovement : MonoBehaviour
         playerIsMoving = false;
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            //direction = Vector2.up;
+            
             directionY = 1f;
             playerIsMoving = true;
 
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            //direction = Vector2.right;
+            
             directionX = 1f;
             playerIsMoving = true;
 
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-           // direction = Vector2.down;
+           
             directionY = -1f;
             playerIsMoving = true;
 
@@ -104,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            //direction = Vector2.left;
+           
             directionX = -1f;
             playerIsMoving = true;
 
@@ -115,10 +116,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    //public void OnPointerClick(PointerEventData data)
-    //{
-    //    Debug.Log(gameObject.name + ": I was clicked!");
-    //}
+    
     private bool IsMouseOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();

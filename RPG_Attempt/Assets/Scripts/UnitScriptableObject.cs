@@ -11,5 +11,8 @@ public class UnitScriptableObject : ScriptableObject
     
     
     
-    
+    public void DealDamage(UnitScriptableObject target)
+    {
+        target.health -= attackStat;
+    }
 }
