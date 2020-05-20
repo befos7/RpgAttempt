@@ -8,7 +8,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     GameObject[] playerSprites, enemySprites;
     [SerializeField]
-    UnitScriptableObject enemyScriptables;
+    private UnitScriptableObject enemyScriptables;
 
     private int targetIndex;
     public enum battleGameState
