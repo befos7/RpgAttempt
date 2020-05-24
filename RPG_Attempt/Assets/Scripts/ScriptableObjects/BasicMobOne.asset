@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: BasicMobOne
   m_EditorClassIdentifier: 
   Unitname: Blob
-  health: -10
+  maxHealth: 30
+  currBattleHealth: -4
   attackStat: 5
