@@ -36,6 +36,10 @@ public class BattleManager : MonoBehaviour
         allyTeam[0] = PersistantData.player;
         enemyTeam = new UnitScriptableObject[1];
         enemyTeam[0] = enemyScriptables;
+        foreach (UnitScriptableObject item in enemyTeam)
+        {
+            item.currBattleHealth = item.maxHealth;
+        }
     }
 
     // Update is called once per frame
@@ -55,7 +59,7 @@ public class BattleManager : MonoBehaviour
 
                 //this needs to become based on turn order
                 allyTeam[0].DealDamage(enemyTeam[targetIndex]);
-                if (enemyTeam[0].health <= 0)
+                if (enemyTeam[0].currBattleHealth <= 0)
                 {
                     GoToEndBattle();
                 }
