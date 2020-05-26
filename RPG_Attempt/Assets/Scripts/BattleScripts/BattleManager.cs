@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    private UnitScriptableObject[] allyTeam, enemyTeam;
+    private BattleUnitData[] allyTeam, enemyTeam;
     [SerializeField]
     GameObject[] playerSprites, enemySprites;
     [SerializeField]
@@ -25,18 +25,28 @@ public class BattleManager : MonoBehaviour
         battleState = battleGameState.Initialize;
         if (PersistantData.playerTeamCount < 1)
         {
-            allyTeam = new UnitScriptableObject[1];
+            allyTeam = new BattleUnitData[1];
 
         }
         else
         {
-            allyTeam = new UnitScriptableObject[PersistantData.playerTeamCount];
+            allyTeam = new BattleUnitData[PersistantData.playerTeamCount];
 
         }
-        allyTeam[0] = PersistantData.player;
-        enemyTeam = new UnitScriptableObject[1];
-        enemyTeam[0] = enemyScriptables;
-        foreach (UnitScriptableObject item in enemyTeam)
+        allyTeam[0] = playerSprites[0].GetComponent<BattleUnitData>();
+        allyTeam[0].unitname = PersistantData.player.unitname;
+        allyTeam[0].maxHealth = PersistantData.player.maxHealth;
+        allyTeam[0].currBattleHealth = PersistantData.player.currBattleHealth;
+        allyTeam[0].attackStat = PersistantData.player.attackStat;
+        //allyTeam[0] = PersistantData.player;
+        enemyTeam = new BattleUnitData[1];
+        enemyTeam[0] = enemySprites[0].GetComponent<BattleUnitData>();
+        enemyTeam[0].unitname = enemyScriptables.unitname;
+        enemyTeam[0].maxHealth = enemyScriptables.maxHealth;
+        enemyTeam[0].currBattleHealth = enemyScriptables.currBattleHealth;
+        enemyTeam[0].attackStat = enemyScriptables.attackStat;
+
+        foreach (BattleUnitData item in enemyTeam)
         {
             item.currBattleHealth = item.maxHealth;
         }

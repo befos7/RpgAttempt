@@ -1388,6 +1388,7 @@ GameObject:
   - component: {fileID: 1603802064}
   - component: {fileID: 1603802066}
   - component: {fileID: 1603802065}
+  - component: {fileID: 1603802067}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1478,6 +1479,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1603802067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603802063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8415fab5123411e4f86f27aab11119d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitname: 
+  maxHealth: 0
+  currBattleHealth: 0
+  attackStat: 0
 --- !u!1 &1640727038
 GameObject:
   m_ObjectHideFlags: 0
@@ -1636,6 +1653,7 @@ GameObject:
   - component: {fileID: 1764914920}
   - component: {fileID: 1764914921}
   - component: {fileID: 1764914922}
+  - component: {fileID: 1764914923}
   m_Layer: 0
   m_Name: EnemyMob
   m_TagString: Untagged
@@ -1725,6 +1743,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1764914923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764914919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8415fab5123411e4f86f27aab11119d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitname: 
+  maxHealth: 0
+  currBattleHealth: 0
+  attackStat: 0
 --- !u!1 &1947039410
 GameObject:
   m_ObjectHideFlags: 0
