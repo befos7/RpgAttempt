@@ -25,6 +25,8 @@ public class BattleUnitData : MonoBehaviour
 
         //Debug.Log(atkRange + " " + damageDone + " " + attackStat);
         target.currBattleHealth = (target.currBattleHealth - (int)damageDone);
+        DamagePopup.Create(target.transform.position, (int)damageDone);
+
         //target.currBattleHealth -= attackStat;
     }
 }
