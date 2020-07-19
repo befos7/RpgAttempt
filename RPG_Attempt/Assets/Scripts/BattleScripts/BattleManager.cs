@@ -5,6 +5,7 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour
 {
     private BattleUnitData[] allyTeam, enemyTeam;
+    private BattleUnitData activeUnit;
     [SerializeField]
     GameObject[] playerSprites, enemySprites;
     [SerializeField]
@@ -55,6 +56,7 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        activeUnit = allyTeam[0];
         switch (battleState)
         {
             case battleGameState.Initialize:// I dont actually know what thise section is for. I hope it comes in handy at some point
@@ -64,11 +66,14 @@ public class BattleManager : MonoBehaviour
                 }
                 break;
             case battleGameState.UnitTurn:
+                //choose target, and start animate attack then move to damagecalc
+
+                
                 break;
             case battleGameState.DamageCalc:
 
                 //this needs to become based on turn order
-                allyTeam[0].DealDamage(enemyTeam[targetIndex]);
+                activeUnit.DealDamage(enemyTeam[targetIndex]);
                 if (enemyTeam[0].currBattleHealth <= 0)
                 {
                     GoToEndBattle();
