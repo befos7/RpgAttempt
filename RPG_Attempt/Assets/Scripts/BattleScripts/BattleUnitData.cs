@@ -6,6 +6,7 @@ public class BattleUnitData : MonoBehaviour
 {
 
     public string unitname;
+    public bool unitIsAlly;
     public int maxHealth;
     public int currBattleHealth;
     public float attackStat;
@@ -16,14 +17,14 @@ public class BattleUnitData : MonoBehaviour
     private BattleUnitData target;
     private float slideSpeed = 20f;
     private Vector3 originPosition;
-    protected enum AttackMove
+    public enum AttackMove
     {
         Still,
         Slide,
         Animation,
         SlideBack
     }
-    protected AttackMove attackMoveState;
+    public AttackMove attackMoveState;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -65,11 +66,12 @@ public class BattleUnitData : MonoBehaviour
                 attackMoveState = AttackMove.SlideBack;
                 break;
             case AttackMove.SlideBack:
-                Debug.Log("slideback");
+                
                 transform.Translate((originPosition - this.transform.position).normalized * (slideSpeed * Time.fixedDeltaTime));
                 if (Vector3.Distance(this.transform.position, originPosition) < 0.1f)
                 {
                     attackMoveState = AttackMove.Still;
+
                 }
 
                 break;

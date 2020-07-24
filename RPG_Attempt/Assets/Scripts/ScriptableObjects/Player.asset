@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitname: Player
   maxHealth: 100
-  currBattleHealth: 0
+  currBattleHealth: 100
   attackStat: 10
