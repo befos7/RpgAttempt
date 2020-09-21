@@ -66,4 +66,11 @@ public class MenuController : MonoBehaviour
             talentTreePanelArray[i].SetActive(false);
         }
     }
+
+
+    public void SetTalentPointRowOne(int value)
+    {
+        PersistantData.talentPoints[0] = value;
+        Debug.Log(PersistantData.talentPoints[0]);
+    }
 }

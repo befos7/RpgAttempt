@@ -9,4 +9,6 @@ public static class PersistantData
     public static int playerTeamCount;
 
     public static bool specialEncounter;
+
+    public static int[] talentPoints = new int[3];
 }

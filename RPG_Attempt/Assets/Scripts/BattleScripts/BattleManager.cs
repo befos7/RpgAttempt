@@ -11,6 +11,9 @@ public class BattleManager : MonoBehaviour
     GameObject[] playerSprites, enemySprites;
     [SerializeField]
     private UnitScriptableObject enemyScriptables;
+    
+    
+    
 
     private int targetIndex;
     public enum battleGameState
@@ -25,7 +28,7 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
 
         battleState = battleGameState.Standby;
         if (PersistantData.playerTeamCount < 1)
@@ -38,13 +41,16 @@ public class BattleManager : MonoBehaviour
             allyTeam = new BattleUnitData[PersistantData.playerTeamCount];
 
         }
+
+        //pass data into the units
+
         allyTeam[0] = playerSprites[0].GetComponent<BattleUnitData>();
         allyTeam[0].unitname = PersistantData.player.unitname;
         allyTeam[0].unitIsAlly = true;
         allyTeam[0].maxHealth = PersistantData.player.maxHealth;
         allyTeam[0].currBattleHealth = PersistantData.player.currBattleHealth;
         allyTeam[0].attackStat = PersistantData.player.attackStat;
-        //allyTeam[0] = PersistantData.player;
+
         enemyTeam = new BattleUnitData[1];
         enemyTeam[0] = enemySprites[0].GetComponent<BattleUnitData>();
         enemyTeam[0].unitname = enemyScriptables.unitname;
@@ -52,6 +58,11 @@ public class BattleManager : MonoBehaviour
         enemyTeam[0].maxHealth = enemyScriptables.maxHealth;
         enemyTeam[0].currBattleHealth = enemyScriptables.currBattleHealth;
         enemyTeam[0].attackStat = enemyScriptables.attackStat;
+
+        // update ui with info
+        //this needs to be a new method eventually
+
+        SetInitialValues();
 
         foreach (BattleUnitData item in enemyTeam)
         {
@@ -72,15 +83,22 @@ public class BattleManager : MonoBehaviour
         ///
     }
 
+    private void SetInitialValues()
+    {
+        GetComponent<CombatMenuController>().UpdateUnitUIHealth(allyTeam[0].currBattleHealth);
+        GetComponent<CombatMenuController>().SetUnitMaxHealth(allyTeam[0].maxHealth);
+    }
+
     // Update is called once per frame
     void Update()
     {
         switch (battleState)
         {
-            case battleGameState.Standby:// I dont actually know what thise section is for. I hope it comes in handy at some point
+            case battleGameState.Standby:// This phase can handle debuffs
                 if (activeUnit.attackMoveState == BattleUnitData.AttackMove.Still)
                 {
                     GoToUnitTurn();
+                    
                 }
                 break;
             case battleGameState.UnitTurn:
@@ -88,7 +106,6 @@ public class BattleManager : MonoBehaviour
                 if (activeUnit == enemyTeam[0])
                 {
                     GotoDamageCalc();
-                    Debug.Log("Unit is enemy, go to damage");
                 }
 
                 
@@ -99,7 +116,7 @@ public class BattleManager : MonoBehaviour
                 if (activeUnit == enemyTeam[0])
                 {
                     activeUnit.DealDamage(allyTeam[0]);
-                    Debug.Log("Enemy Attackd");
+                    GetComponent<CombatMenuController>().UpdateUnitUIHealth(allyTeam[0].currBattleHealth);
                 }
                 else
                 {
@@ -118,6 +135,7 @@ public class BattleManager : MonoBehaviour
 
                 if (enemyTeam[0].currBattleHealth <= 0)
                 {
+                    UpdatePlayerData();
                     GetComponent<ExitBattle>().FleeBattle();
 
                 }
@@ -144,6 +162,8 @@ public class BattleManager : MonoBehaviour
 
     public void GotoDamageCalc()
     {
+        GetComponent<CombatMenuController>().DisableCombatPanel();
+
         battleState = battleGameState.DamageCalc;
     }
     public void GoToEndBattle()
@@ -153,10 +173,17 @@ public class BattleManager : MonoBehaviour
     }
     public void GoToUnitTurn()
     {
+        if (activeUnit.unitIsAlly)
+        {
+        GetComponent<CombatMenuController>().EnableCombatPanel();
+
+        }
+
         battleState = battleGameState.UnitTurn;
     }
     public void GotoStandby()
     {
+       
         battleState = battleGameState.Standby;
 
     }
@@ -171,13 +198,15 @@ public class BattleManager : MonoBehaviour
         if (activeUnit == allyTeam[0])
         {
             activeUnit = enemyTeam[0];
-            Debug.Log("Active unit is now enemy");
         }
         else
         {
             activeUnit = allyTeam[0];
-            Debug.Log("Active unit is now Ally");
 
         }
+    }
+     private void UpdatePlayerData()
+    {
+        PersistantData.player.currBattleHealth = allyTeam[0].currBattleHealth;
     }
 }
