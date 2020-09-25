@@ -5,7 +5,7 @@ using UnityEngine;
 public class LoadPersistantData : MonoBehaviour
 {
     [SerializeField]
-    UnitScriptableObject playerData;
+    public UnitScriptableObject playerData;
     void Start()
     {
         //possible temporary for battle testing

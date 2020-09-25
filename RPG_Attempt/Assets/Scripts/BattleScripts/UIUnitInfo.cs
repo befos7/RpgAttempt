@@ -8,7 +8,7 @@ public class UIUnitInfo : MonoBehaviour
 {
 
     [SerializeField]
-    Transform unitHealth, unitMaxHealth, unitName;
+    public Transform unitHealth, unitMaxHealth, unitName;
 
     
 

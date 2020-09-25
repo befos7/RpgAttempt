@@ -12,6 +12,11 @@ public class BattleUnitData : MonoBehaviour
     public int currBattleHealth;
     public float attackStat;
 
+    //passives
+    public bool lifeSteal = false; //lifesteal can be 10% right now
+    public float lifeStealPerc;
+    public float lifeStealAmount;
+
     private float atkRange;
     private float damageDone;
     private Animator animator;
@@ -39,11 +44,26 @@ public class BattleUnitData : MonoBehaviour
 
         //Debug.Log(atkRange + " " + damageDone + " " + attackStat);
         target.currBattleHealth = (target.currBattleHealth - (int)damageDone);
+        if (lifeSteal)
+        {
+            ApplyLifeSteal(damageDone);
+        }
         attackMoveState = AttackMove.Slide;
 
         //target.currBattleHealth -= attackStat;
     }
+    public void ApplyLifeSteal(float damage)
+    {
+        lifeStealAmount = Mathf.RoundToInt(damage * lifeStealPerc);
+        if (lifeStealAmount < 1)
+        {
+            lifeStealAmount = 1;
+        }
+        
+        currBattleHealth += (int)lifeStealAmount;
 
+        
+    }
 
     private void Update()
     {
@@ -58,7 +78,12 @@ public class BattleUnitData : MonoBehaviour
                 if (Vector3.Distance(this.transform.position, target.transform.position) < 2f)
                 {
                     attackMoveState = AttackMove.Animation;
-                    DamagePopup.Create(target.transform.position, (int)damageDone);
+                    DamagePopup.Create(target.transform.position, (int)damageDone, Color.red);
+                    if (lifeSteal)
+                    {
+                        DamagePopup.Create(transform.position, (int)lifeStealAmount, Color.green);
+
+                    }
 
                 }
                 break;

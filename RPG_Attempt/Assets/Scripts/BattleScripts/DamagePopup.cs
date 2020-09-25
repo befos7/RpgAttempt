@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class DamagePopup : MonoBehaviour
 {
-    
-    
-    
-    public static DamagePopup Create(Vector3 position, int damageAmount)
+
+
+
+    public static DamagePopup Create(Vector3 position, int damageAmount, Color color)
     {
         Transform damagePopupTranform = Instantiate(GameAssets.i.pfDamagePopup, position, Quaternion.identity);
         damagePopupTranform.GetComponent<TextMeshPro>().SetText(damageAmount.ToString());
+        damagePopupTranform.GetComponent<TextMeshPro>().faceColor = color;
         DamagePopup damagePopUp = damagePopupTranform.GetComponent<DamagePopup>();
         //damagePopUp.Setup(damageAmount);
         
@@ -25,8 +26,5 @@ public class DamagePopup : MonoBehaviour
         
     }
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

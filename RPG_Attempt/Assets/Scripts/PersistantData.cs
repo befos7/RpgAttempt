@@ -10,5 +10,5 @@ public static class PersistantData
 
     public static bool specialEncounter;
 
-    public static int[] talentPoints = new int[3];
+    public static bool[,] talentPoints = new bool[3,3];
 }

@@ -7,7 +7,7 @@ public class RandomEncounter : MonoBehaviour
 {
 
     [SerializeField]
-    GameObject player;
+    public GameObject player;
     int encounterChance;
     int upperEncounterValue;
     int EncounterDecriment;

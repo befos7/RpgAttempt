@@ -10,9 +10,9 @@ public class CombatMenuController : MonoBehaviour
     //attack action currently directly enables the target panel
 
     [SerializeField]
-    GameObject combatPanel;
+    public GameObject combatPanel;
     [SerializeField]
-    UIUnitInfo[] allyUnits;
+    public UIUnitInfo[] allyUnits;
     
 
     public void DisableCombatPanel()

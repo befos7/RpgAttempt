@@ -6,11 +6,11 @@ public class BattleManager : MonoBehaviour
 {
     private BattleUnitData[] allyTeam, enemyTeam;
     [SerializeField]
-    private BattleUnitData activeUnit;
+    public BattleUnitData activeUnit;
     [SerializeField]
-    GameObject[] playerSprites, enemySprites;
+    public GameObject[] playerSprites, enemySprites;
     [SerializeField]
-    private UnitScriptableObject enemyScriptables;
+    public UnitScriptableObject enemyScriptables;
     
     
     
@@ -50,6 +50,12 @@ public class BattleManager : MonoBehaviour
         allyTeam[0].maxHealth = PersistantData.player.maxHealth;
         allyTeam[0].currBattleHealth = PersistantData.player.currBattleHealth;
         allyTeam[0].attackStat = PersistantData.player.attackStat;
+        if (PersistantData.talentPoints[0,1])
+        {
+            allyTeam[0].lifeSteal = true;
+            allyTeam[0].lifeStealPerc = 0.1f;
+
+        }
 
         enemyTeam = new BattleUnitData[1];
         enemyTeam[0] = enemySprites[0].GetComponent<BattleUnitData>();
