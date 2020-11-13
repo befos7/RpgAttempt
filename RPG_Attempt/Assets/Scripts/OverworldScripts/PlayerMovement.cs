@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     
     public bool playerIsMoving;
 
+    [SerializeField]
+    public GameObject[] spawnArray;
     
     void Start()
     {
@@ -26,23 +28,28 @@ public class PlayerMovement : MonoBehaviour
         positionSet = false;
         menuOpen = false;
         playerIsMoving = false;
-
+        if (PersistantData.locationSaved)
+        {
+            this.transform.localPosition = PersistantData.playerLocation;
+            PersistantData.locationSaved = false;
+        }
+        else
+        {
+            this.transform.localPosition = spawnArray[PersistantData.locationToSpawn].transform.position;
+        }
         
         
     }
 
     
-    void Update()
-    {
-
-    }
+    
 
     private void FixedUpdate()
     {
-        MouseMovement();
 
         if (!menuOpen)
         {
+            MouseMovement();
             ArrowMovement();
 
         }
@@ -128,7 +135,11 @@ public class PlayerMovement : MonoBehaviour
         direction = Vector2.zero;
         targetPos = transform.position;
     }
-    
 
-    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        playerIsMoving = false;
+        positionSet = false;
+    }
+
 }

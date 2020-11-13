@@ -16,3 +16,4 @@ MonoBehaviour:
   maxHealth: 30
   currBattleHealth: -4
   attackStat: 5
+  prefab: {fileID: 2796799156070769632, guid: 9216977b504f601498d295c1dff774c9, type: 3}

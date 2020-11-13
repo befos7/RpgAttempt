@@ -11,6 +11,8 @@ public class BattleUnitData : MonoBehaviour
     public int maxHealth;
     public int currBattleHealth;
     public float attackStat;
+    public float critChance = 5;
+    public bool critHappened;
 
     //passives
     public bool lifeSteal = false; //lifesteal can be 10% right now
@@ -23,6 +25,8 @@ public class BattleUnitData : MonoBehaviour
     private BattleUnitData target;
     private float slideSpeed = 20f;
     private Vector3 originPosition;
+
+    Color textColor;
     public enum AttackMove
     {
         Still,
@@ -38,9 +42,16 @@ public class BattleUnitData : MonoBehaviour
     }
     public void DealDamage(BattleUnitData atkTarget)
     {
+        critHappened = false;
         target = atkTarget;
         atkRange = UnityEngine.Random.Range(60, 100);
         damageDone = Mathf.RoundToInt(attackStat * (atkRange / 100));
+        if (UnityEngine.Random.Range(1, 100) < critChance)
+        {
+            critHappened = true;
+            damageDone = Mathf.RoundToInt(damageDone *= 1.5f);
+        }
+        
 
         //Debug.Log(atkRange + " " + damageDone + " " + attackStat);
         target.currBattleHealth = (target.currBattleHealth - (int)damageDone);
@@ -78,7 +89,16 @@ public class BattleUnitData : MonoBehaviour
                 if (Vector3.Distance(this.transform.position, target.transform.position) < 2f)
                 {
                     attackMoveState = AttackMove.Animation;
-                    DamagePopup.Create(target.transform.position, (int)damageDone, Color.red);
+                    if (critHappened)
+                    {
+                        textColor = Color.yellow;
+                    }
+                    else
+                    {
+                        textColor = Color.red;
+
+                    }
+                    DamagePopup.Create(target.transform.position, (int)damageDone, textColor);
                     if (lifeSteal)
                     {
                         DamagePopup.Create(transform.position, (int)lifeStealAmount, Color.green);

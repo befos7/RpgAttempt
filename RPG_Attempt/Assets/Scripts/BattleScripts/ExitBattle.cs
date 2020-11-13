@@ -25,6 +25,6 @@ public class ExitBattle : MonoBehaviour
 
     public void FleeBattle()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(PersistantData.sceneValue) ;
     }
 }

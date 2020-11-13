@@ -14,7 +14,7 @@ public class RandomEncounter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        upperEncounterValue = 2000;
+        upperEncounterValue = 1000;
         EncounterDecriment = 0;
     }
 
@@ -26,6 +26,9 @@ public class RandomEncounter : MonoBehaviour
             encounterChance = Random.Range(1, upperEncounterValue - EncounterDecriment);
             if (encounterChance == 2)
             {
+                PersistantData.sceneValue = SceneManager.GetActiveScene().buildIndex;
+                PersistantData.playerLocation = player.transform.position;
+                PersistantData.locationSaved = true;
                 SceneManager.LoadScene(2);
             }
             else
@@ -42,6 +45,10 @@ public class RandomEncounter : MonoBehaviour
 
     public void StartRandomBattle()
     {
+        PersistantData.sceneValue = SceneManager.GetActiveScene().buildIndex;
+        PersistantData.playerLocation = player.transform.localPosition;
+        PersistantData.locationSaved = true;
+
         SceneManager.LoadScene(2);
 
     }

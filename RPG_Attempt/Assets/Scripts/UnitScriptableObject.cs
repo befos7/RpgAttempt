@@ -6,13 +6,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/UnitScriptableObject", order = 1)]
 public class UnitScriptableObject : ScriptableObject
 {
+    
     public string unitname;
     public int maxHealth;
     public int currBattleHealth;
     public float attackStat;
+    public GameObject prefab;
+    public Sprite sprite;
+    
 
     private float atkRange;
     private float damageDone;
+
+    
     //public void DealDamage(UnitScriptableObject target)
     //{
     //    atkRange = UnityEngine.Random.Range(60, 100);

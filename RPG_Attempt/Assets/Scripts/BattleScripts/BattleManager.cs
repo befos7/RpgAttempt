@@ -11,10 +11,11 @@ public class BattleManager : MonoBehaviour
     public GameObject[] playerSprites, enemySprites;
     [SerializeField]
     public UnitScriptableObject enemyScriptables;
-    
-    
-    
+    [SerializeField]
+    private Transform[] enemyTransforms;
 
+
+    private int randomMob;
     private int targetIndex;
     public enum battleGameState
     {
@@ -50,7 +51,7 @@ public class BattleManager : MonoBehaviour
         allyTeam[0].maxHealth = PersistantData.player.maxHealth;
         allyTeam[0].currBattleHealth = PersistantData.player.currBattleHealth;
         allyTeam[0].attackStat = PersistantData.player.attackStat;
-        if (PersistantData.talentPoints[0,1])
+        if (PersistantData.TalentPoints[0,6])
         {
             allyTeam[0].lifeSteal = true;
             allyTeam[0].lifeStealPerc = 0.1f;
@@ -58,12 +59,28 @@ public class BattleManager : MonoBehaviour
         }
 
         enemyTeam = new BattleUnitData[1];
-        enemyTeam[0] = enemySprites[0].GetComponent<BattleUnitData>();
-        enemyTeam[0].unitname = enemyScriptables.unitname;
-        enemyTeam[0].unitIsAlly = false;
-        enemyTeam[0].maxHealth = enemyScriptables.maxHealth;
-        enemyTeam[0].currBattleHealth = enemyScriptables.currBattleHealth;
-        enemyTeam[0].attackStat = enemyScriptables.attackStat;
+        //enemyTeam[0] = enemySprites[0].GetComponent<BattleUnitData>();
+        //enemyTeam[0].unitname = enemyScriptables.unitname;
+        //enemyTeam[0].unitIsAlly = false;
+        //enemyTeam[0].maxHealth = enemyScriptables.maxHealth;
+        //enemyTeam[0].currBattleHealth = enemyScriptables.currBattleHealth;
+        //enemyTeam[0].attackStat = enemyScriptables.attackStat;
+
+
+        //randomMob = Random.Range(0, )
+        for (int i = 0; i < PersistantData.maxMobCount; i++)
+        {
+            GameObject unitSpawn = Instantiate(PersistantData.zoneMobs[0].prefab);
+            unitSpawn.transform.position = enemyTransforms[0].position;
+            unitSpawn.transform.parent = enemyTransforms[0];
+            enemyTeam[0] = unitSpawn.GetComponentInChildren<BattleUnitData>();
+            enemyTeam[0].unitname = PersistantData.zoneMobs[0].unitname;
+            enemyTeam[0].unitIsAlly = false;
+            enemyTeam[0].maxHealth = PersistantData.zoneMobs[0].maxHealth;
+            enemyTeam[0].currBattleHealth = PersistantData.zoneMobs[0].currBattleHealth;
+            enemyTeam[0].attackStat = PersistantData.zoneMobs[0].attackStat;
+        }
+        
 
         // update ui with info
         //this needs to be a new method eventually
