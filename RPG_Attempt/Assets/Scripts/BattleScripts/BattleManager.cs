@@ -26,12 +26,24 @@ public class BattleManager : MonoBehaviour
         EndTurn
     }
     public battleGameState battleState;
+
+
+    public enum CombatAbilities
+    {
+        Attack,
+        Cleave,
+        Heavy,
+        Boulder,
+        Bleed
+    }
+    public CombatAbilities abilities;
     // Start is called before the first frame update
     void Start()
     {
 
 
         battleState = battleGameState.Standby;
+        abilities = CombatAbilities.Attack;
         if (PersistantData.playerTeamCount < 1)
         {
             allyTeam = new BattleUnitData[1];
@@ -135,18 +147,44 @@ public class BattleManager : MonoBehaviour
                 break;
             case battleGameState.DamageCalc:
 
-                //this needs to become based on turn order
-                if (activeUnit == enemyTeam[0])
-                {
-                    activeUnit.DealDamage(allyTeam[0]);
-                    GetComponent<CombatMenuController>().UpdateUnitUIHealth(allyTeam[0].currBattleHealth);
-                }
-                else
-                {
-                activeUnit.DealDamage(enemyTeam[targetIndex]);
 
+
+                switch (abilities)
+                {
+                    case CombatAbilities.Attack:  //1
+                        if (activeUnit == enemyTeam[0])
+                        {
+                            activeUnit.DealDamage(allyTeam[0]);
+                            GetComponent<CombatMenuController>().UpdateUnitUIHealth(allyTeam[0].currBattleHealth);
+                        }
+                        else
+                        {
+                        activeUnit.DealDamage(enemyTeam[targetIndex]);
+
+                        }
+
+                        break;
+                    case CombatAbilities.Cleave:  //2  hit all enemies, costs health
+                        for (int i = 0; i < enemyTeam.Length; i++)
+                        {
+                            activeUnit.DealSetDamage(enemyTeam[i], activeUnit.attackStat); //currently no animations
+                        }
+                        break;
+                    case CombatAbilities.Heavy: //3
+                        break;
+                    case CombatAbilities.Boulder://4
+                        break;
+                    case CombatAbilities.Bleed://5
+
+                        //code this later, need to make debuffs
+
+                        break;
+                    default:
+                        break;
                 }
                 GoToAnimation();
+
+                //this needs to become based on turn order
                 break;
             case battleGameState.AnimationTime:
                 if (activeUnit.attackMoveState == BattleUnitData.AttackMove.Still)
@@ -231,5 +269,29 @@ public class BattleManager : MonoBehaviour
      private void UpdatePlayerData()
     {
         PersistantData.player.currBattleHealth = allyTeam[0].currBattleHealth;
+    }
+
+    public void SetCombatType(int value)
+    {
+        switch (value)
+        {
+            case 1:
+                abilities = CombatAbilities.Attack;
+                break;
+            case 2:
+                abilities = CombatAbilities.Cleave;
+                break;
+            case 3:
+                abilities = CombatAbilities.Heavy;
+                break;
+            case 4:
+                abilities = CombatAbilities.Boulder;
+                break;
+            case 5:
+                abilities = CombatAbilities.Bleed;
+                break;
+            default:
+                break;
+        }
     }
 }

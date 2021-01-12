@@ -21,6 +21,7 @@ public class BattleUnitData : MonoBehaviour
 
     private float atkRange;
     private float damageDone;
+    private float healthCostChange;
     private Animator animator;
     private BattleUnitData target;
     private float slideSpeed = 20f;
@@ -63,6 +64,23 @@ public class BattleUnitData : MonoBehaviour
 
         //target.currBattleHealth -= attackStat;
     }
+
+
+    public void DealSetDamage(BattleUnitData atkTarget, float healthCostPercent)
+    {
+        //cannot crit
+        //cost health
+        target = atkTarget;
+        damageDone = Mathf.RoundToInt(attackStat * 0.7f);
+        target.currBattleHealth = (target.currBattleHealth - (int)damageDone);
+        healthCostChange = Mathf.RoundToInt(currBattleHealth * (1 - healthCostPercent));
+        DamagePopup.Create(transform.position, (int)healthCostChange, Color.red);
+        //attackMoveState = AttackMove.Slide;
+
+
+        /// this still needs a way to animate properly
+       
+    }
     public void ApplyLifeSteal(float damage)
     {
         lifeStealAmount = Mathf.RoundToInt(damage * lifeStealPerc);
@@ -84,14 +102,15 @@ public class BattleUnitData : MonoBehaviour
 
                 break;
             case AttackMove.Slide:
-                transform.Translate((target.transform.position - this.transform.position).normalized * (slideSpeed * Time.fixedDeltaTime));
+                transform.Translate((target.transform.position - this.transform.position).normalized * (slideSpeed * Time.fixedDeltaTime));//move towards target
 
-                if (Vector3.Distance(this.transform.position, target.transform.position) < 2f)
+                if (Vector3.Distance(this.transform.position, target.transform.position) < 2f) //stop near target
                 {
                     attackMoveState = AttackMove.Animation;
                     if (critHappened)
                     {
                         textColor = Color.yellow;
+                        critHappened = false;
                     }
                     else
                     {
