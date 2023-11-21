@@ -24,7 +24,7 @@ public class BattleUnitData : MonoBehaviour
     private float healthCostChange;
     private Animator animator;
     private BattleUnitData target;
-    private float slideSpeed = 20f;
+    private float slideSpeed = 10f;
     private Vector3 originPosition;
 
     Color textColor;

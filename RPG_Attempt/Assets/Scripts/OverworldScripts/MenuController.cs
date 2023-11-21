@@ -13,12 +13,13 @@ public class MenuController : MonoBehaviour
     public GameObject talentTreePanel;
     [SerializeField]
     public GameObject[] talentTreePanelArray;
-    
+
+
+    [SerializeField]
+    public Text playerHealth;
 
 
    
-   
-
     public void ToggleMenu()
     {
         
@@ -50,5 +51,11 @@ public class MenuController : MonoBehaviour
         }
     }
    
-
+    public void CharacterPanelUpdate()
+    {
+        if (playerHealth.text == "")
+        {
+            playerHealth.text = PersistantData.player.currBattleHealth.ToString();
+        }
+    }
 }

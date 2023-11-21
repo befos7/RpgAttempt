@@ -49,8 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (!menuOpen)
         {
-            MouseMovement();
             ArrowMovement();
+            MouseMovement();
 
         }
 
@@ -88,33 +88,41 @@ public class PlayerMovement : MonoBehaviour
         directionX = 0f;
         directionY = 0f;
         playerIsMoving = false;
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W))
         {
             
             directionY = 1f;
             playerIsMoving = true;
+            //positionSet = false;
+
 
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             
             directionX = 1f;
             playerIsMoving = true;
+            //positionSet = false;
+
 
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S))
         {
            
             directionY = -1f;
             playerIsMoving = true;
+            //positionSet = false;
+
 
 
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
            
             directionX = -1f;
             playerIsMoving = true;
+            //positionSet = false;
+
 
         }
         direction = new Vector2(directionX, directionY);
