@@ -26,6 +26,9 @@ public static class PersistantData
     
     //Menu data
     public static bool[,] TalentPoints = new bool[4, 9];
+    //1,0 = bleed       1,1 = cleave   1,2 = heavy
+    //1,3 =             1,4 =    1,5 =
+    //1,6 = lifesteal   1,7 =    1,8 =
 
 
 }

@@ -14,6 +14,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private Transform[] enemyTransforms;
 
+    
+
 
     private int randomMob;
     private int targetIndex;
@@ -69,8 +71,9 @@ public class BattleManager : MonoBehaviour
             allyTeam[0].lifeStealPerc = 0.1f;
 
         }
-
-        enemyTeam = new BattleUnitData[1];
+        //set up the array according to how many mobs i need.
+        //this will need to eventually be random of 1-max count
+        enemyTeam = new BattleUnitData[PersistantData.maxMobCount]; 
         //enemyTeam[0] = enemySprites[0].GetComponent<BattleUnitData>();
         //enemyTeam[0].unitname = enemyScriptables.unitname;
         //enemyTeam[0].unitIsAlly = false;
@@ -80,17 +83,18 @@ public class BattleManager : MonoBehaviour
 
 
         //randomMob = Random.Range(0, )
-        for (int i = 0; i < PersistantData.maxMobCount; i++)
+        //the zeros here currently are for testing and should be random to match up with the zone spawn list
+        for (int i = 0; i < PersistantData.maxMobCount; i++) 
         {
             GameObject unitSpawn = Instantiate(PersistantData.zoneMobs[0].prefab);
-            unitSpawn.transform.position = enemyTransforms[0].position;
-            unitSpawn.transform.parent = enemyTransforms[0];
-            enemyTeam[0] = unitSpawn.GetComponentInChildren<BattleUnitData>();
-            enemyTeam[0].unitname = PersistantData.zoneMobs[0].unitname;
-            enemyTeam[0].unitIsAlly = false;
-            enemyTeam[0].maxHealth = PersistantData.zoneMobs[0].maxHealth;
-            enemyTeam[0].currBattleHealth = PersistantData.zoneMobs[0].currBattleHealth;
-            enemyTeam[0].attackStat = PersistantData.zoneMobs[0].attackStat;
+            unitSpawn.transform.position = enemyTransforms[i].position;
+            unitSpawn.transform.parent = enemyTransforms[i];
+            enemyTeam[i] = unitSpawn.GetComponentInChildren<BattleUnitData>();
+            enemyTeam[i].unitname = PersistantData.zoneMobs[0].unitname;
+            enemyTeam[i].unitIsAlly = false;
+            enemyTeam[i].maxHealth = PersistantData.zoneMobs[0].maxHealth;
+            enemyTeam[i].currBattleHealth = PersistantData.zoneMobs[0].currBattleHealth;
+            enemyTeam[i].attackStat = PersistantData.zoneMobs[0].attackStat;
         }
         
 
@@ -266,7 +270,7 @@ public class BattleManager : MonoBehaviour
 
         }
     }
-     private void UpdatePlayerData()
+     public void UpdatePlayerData()
     {
         PersistantData.player.currBattleHealth = allyTeam[0].currBattleHealth;
     }
