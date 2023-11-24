@@ -169,10 +169,21 @@ public class BattleManager : MonoBehaviour
 
                         break;
                     case CombatAbilities.Cleave:  //2  hit all enemies, costs health
-                        for (int i = 0; i < enemyTeam.Length; i++)
-                        {
-                            activeUnit.DealSetDamage(enemyTeam[i], activeUnit.attackStat); //currently no animations
-                        }
+
+                        ////for debugging
+                        //if (activeUnit == enemyTeam[0])
+                        //{
+                        //    battleState = battleGameState.EndTurn;
+                        //}
+                        //else
+                        //{
+                            
+                        //}
+                            for (int i = 0; i < enemyTeam.Length; i++)
+                            {
+                                activeUnit.DealSetDamage(enemyTeam[i], activeUnit.attackStat); //currently no animations
+                            }
+
                         break;
                     case CombatAbilities.Heavy: //3
                         break;
@@ -186,6 +197,7 @@ public class BattleManager : MonoBehaviour
                     default:
                         break;
                 }
+                abilities = CombatAbilities.Attack;
                 GoToAnimation();
 
                 //this needs to become based on turn order

@@ -74,7 +74,8 @@ public class BattleUnitData : MonoBehaviour
         damageDone = Mathf.RoundToInt(attackStat * 0.7f);
         target.currBattleHealth = (target.currBattleHealth - (int)damageDone);
         healthCostChange = Mathf.RoundToInt(currBattleHealth * (1 - healthCostPercent));
-        DamagePopup.Create(transform.position, (int)healthCostChange, Color.red);
+
+        DamagePopup.Create(target.transform.position, (int)damageDone, Color.red);
         //attackMoveState = AttackMove.Slide;
 
 
